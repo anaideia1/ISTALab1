@@ -1,0 +1,19 @@
+{% extends 'base.html' %}
+{% block title %}
+    Games list
+{% endblock title %}
+
+{% block content %}
+
+
+    {% for game in games %}
+        <h1>{{ game.id }}</h1>
+        <p>{{ game.radiant.player1.player.nickname }} playing on  {{ game.radiant.player1.hero.name }}</p>
+        <p>{{ game.radiant.player2.player.nickname }} playing on  {{ game.radiant.player2.hero.name }}</p>
+        <p>{{ game.dire.player1.player.nickname }} playing on  {{ game.dire.player1.hero.name }}</p>
+        <p>{{ game.dire.player2.player.nickname }} playing on  {{ game.dire.player2.hero.name }}</p>
+        <hr>
+    {% endfor %}
+
+
+{% endblock content %}
