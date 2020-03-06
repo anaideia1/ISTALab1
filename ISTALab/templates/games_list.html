@@ -1,0 +1,16 @@
+{% extends 'base.html' %}
+{% block title %}
+	Game List
+{% endblock title %}
+
+{% block content %}
+	<h1> <a href="{% url 'game_new' %}">+New Game</a></h1>
+
+    {% for game in games %}
+        <h1> <a href="{% url 'game_detail' game.pk %}"> {{game.id}} game </a></h1>
+        <p>{{ game.radiant.player1.player.nickname }} ({{ game.radiant.player1.hero.name }}) & {{ game.radiant.player2.player.nickname }} ({{ game.radiant.player2.hero.name }})  playing vs {{ game.dire.player1.player.nickname }} ({{ game.dire.player1.hero.name }}) & {{ game.dire.player2.player.nickname }} ({{ game.dire.player2.hero.name }})</p>
+        <hr>
+    {% endfor %}
+
+
+{% endblock content %}
