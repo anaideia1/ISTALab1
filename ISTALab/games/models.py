@@ -40,7 +40,7 @@ class Team(models.Model):
 
 
 class Game(models.Model):
-	winner = models.SmallIntegerField(choices = SIDE_CHOICES, default = 1) # false - radiant, true - dire
+	winner = models.SmallIntegerField(choices = SIDE_CHOICES, default = 1) # 1 - radiant, 2 - dire
 	date = models.DateField(auto_now=False, auto_now_add=False)
 	radiant = models.ForeignKey(Team, on_delete = models.CASCADE, related_name='radiant')
 	dire = models.ForeignKey(Team, on_delete = models.CASCADE, related_name='dire')

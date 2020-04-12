@@ -8,7 +8,6 @@ class GamesListView(generic.ListView):
     template_name = 'games_list.html'
     context_object_name = 'games'
 
-
 class GameDetailView(generic.DetailView):
     model = Game
     template_name = 'game_detail.html'
@@ -27,4 +26,4 @@ class GameEditView(generic.edit.UpdateView):
 class GameDeleteView(generic.edit.DeleteView):
 	model = Game
 	template_name = 'game_delete.html'
-	success_url = reverse_lazy('home')
+	success_url = reverse_lazy('games_list')

@@ -4,13 +4,62 @@
 {% endblock title %}
 
 {% block content %}
-	<h1> <a href="{% url 'game_new' %}">+New Game</a></h1>
-
     {% for game in games %}
         <h1> <a href="{% url 'game_detail' game.pk %}"> {{game.id}} game </a></h1>
-        <p>{{ game.radiant.player1.player.nickname }} ({{ game.radiant.player1.hero.name }}) & {{ game.radiant.player2.player.nickname }} ({{ game.radiant.player2.hero.name }})  playing vs {{ game.dire.player1.player.nickname }} ({{ game.dire.player1.hero.name }}) & {{ game.dire.player2.player.nickname }} ({{ game.dire.player2.hero.name }})</p>
+        {% if game.winner is 1 %}
+        	<p> Radiant win </p>
+        {% else %}
+        	<p> Dire win </p>
+        {% endif %}
         <hr>
     {% endfor %}
+    <h2> <a href="{% url 'game_new' %}">Create new game</a></h1>
+    <script src="https://cdn.zingchart.com/zingchart.min.js"></script>
+    <div id="myChart"></div>
 
+    <script>
 
+        state = {
+            "items": [],
+            "values": [],
+        };
+        r = 0
+        d = 0
+        {% for game in games %}
+            {% if game.winner is 1 %}
+                r = r + 1
+            {% else %}
+                d = d + 1
+            {% endif %}
+        {% endfor %}
+        state.items.push("Radiant");
+        state.values.push( r );
+
+        state.items.push("Dire");
+        state.values.push( d );
+
+        buildChart();
+
+        function buildChart() {
+            let chartData = {
+                "type": "bar",
+                "scale-x": {
+                    "values": state.items,
+                    label: {text: 'Game winner'}
+                },
+                "series": [
+                    {
+                        "values": state.values
+                    }
+                ],
+                scaleY: {
+                    label: {text: 'Number of games'}
+                },
+            };
+            zingchart.render({
+                id: 'myChart',
+                data: chartData
+            });
+        }
+    </script>
 {% endblock content %}
